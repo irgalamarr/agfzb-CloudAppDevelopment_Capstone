@@ -139,4 +139,7 @@ server/djangoapp/migrations/
 .DS_Store
 *.pyc
 server/djangoapp/migrations/
+functions/node_modules
+functions/package-lock.json
+functions/package.json
 
