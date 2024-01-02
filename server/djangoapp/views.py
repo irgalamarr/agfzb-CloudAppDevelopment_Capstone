@@ -80,22 +80,28 @@ def registration_request(request):
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     if request.method == "GET":
+        context = {}
         url = "https://irgalamarr-3000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
-        return HttpResponse(dealer_names)
+        context['dealership_list'] = dealerships
+        return render(request, 'djangoapp/index.html', context)
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
 def get_dealer_details(request, dealer_id):
     if(request.method == "GET"):
-        url = "https://irgalamarr-5000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
-        dealership_reviews = get_dealer_reviews_from_cf(url, id=dealer_id)
-        review_texts = ' '.join([review.review + " ("+ str(review.sentiment) +")" for review in dealership_reviews])
-        return HttpResponse(review_texts)
+        context = {}
+        dealer_url = "https://irgalamarr-3000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        reviews_url = "https://irgalamarr-5000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
+        dealerships = get_dealers_from_cf(dealer_url, id=dealer_id)
+        context['dealership'] = dealerships[0]
+        dealership_reviews = get_dealer_reviews_from_cf(reviews_url, id=dealer_id)
+        context['review_list'] = dealership_reviews
+        return render(request, 'djangoapp/dealer_details.html', context)
 
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
