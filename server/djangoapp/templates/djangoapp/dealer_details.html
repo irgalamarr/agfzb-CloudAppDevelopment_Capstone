@@ -8,19 +8,7 @@
 </head>
 
     <body>
-        <nav class="navbar navbar-expand-sm bg-none">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact us</a>
-                </li>
-              </ul>
-        </nav>
+        {% block nav %}{% include 'djangoapp/navbar.html' %}{% endblock nav %}
         <div class="bg-white">
             <div class="container py-2">
                 <div class="row h-25 align-items-center py-2">

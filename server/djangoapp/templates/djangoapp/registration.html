@@ -6,19 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
     <body>
-        <nav class="navbar navbar-expand-sm bg-none">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact us</a>
-                </li>
-              </ul>
-        </nav>
+        {% block nav %}{% include 'djangoapp/navbar.html' %}{% endblock nav %}
         <!-- Registration form -->
         <br/>
     <form action="{% url 'djangoapp:registration' %}" method="post">
@@ -27,6 +15,11 @@
             <h1>Sign Up</h1>
             <hr>
             <br/>
+            {% if message %}
+            <div class="alert alert-warning">
+                {{ message }}
+            </div>
+            {% endif %}
             <div class="form-group"> 
                 <label for="username"><b>User Name</b></label>
                 <input type="text" class="form-control" placeholder="Enter User Name: " name="username" required>
@@ -36,11 +29,6 @@
                 <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required>
                 <label for="psw"><b>Password</b></label>
                 <input type="password" class="form-control" placeholder="Enter Password: " name="psw" required> 
-                {% if message %}
-                <div class="alert alert-warning">
-                    {{ message }}
-                </div>
-                {% endif %}
                 <button class="btn btn-primary mt-2" type="submit">Sign up</button>
             </div>
         </div>
