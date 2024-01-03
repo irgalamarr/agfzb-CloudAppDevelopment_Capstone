@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.timezone import now
+
 
 # Create your models here.
 class CarMake(models.Model):
@@ -9,13 +9,15 @@ class CarMake(models.Model):
     def __str__(self):
         return self.name + " " + self.description
 
+
 car_model_types = [
     ("Sedan", "Sedan"),
     ("SUV", "SUV"),
     ("WAGON", "WAGON")
 ]
 
-#Car Model model
+
+# Car Model model
 class CarModel(models.Model):
     make = models.ForeignKey(CarMake, null=True, on_delete=models.CASCADE)
     dealer_id = models.IntegerField(null=True)
@@ -24,7 +26,8 @@ class CarModel(models.Model):
     year = models.DateField(null=True)
 
     def __str__(self):
-            return self.name + " " + self.model_type
+        return self.name + " " + self.model_type
+
 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 class CarDealer:
@@ -50,6 +53,7 @@ class CarDealer:
 
     def __str__(self):
         return "Dealer name: " + self.full_name
+
 
 # <HINT> Create a plain Python class `DealerReview` to hold review data
 class DealerReview:

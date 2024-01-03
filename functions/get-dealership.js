@@ -7,7 +7,7 @@ const Cloudant = require('@cloudant/cloudant');
 async function dbCloudantConnect() {
     try {
         const cloudant = Cloudant({
-            plugins: { iamauth: { iamApiKey: 'WvYVikfvfKzh8Uu7lBViLZstFHyIgWZ558hhDGCe_1Q5' } }, // Replace with your IAM API key
+            plugins: {iamauth: {iamApiKey: 'WvYVikfvfKzh8Uu7lBViLZstFHyIgWZ558hhDGCe_1Q5'}}, // Replace with your IAM API key
             url: 'https://e9f67c5d-6221-463a-9143-97ce0fff6450-bluemix.cloudantnosqldb.appdomain.cloud', // Replace with your Cloudant URL
         });
 
@@ -30,14 +30,14 @@ app.use(express.json());
 
 // Define a route to get all dealerships with optional state and ID filters
 app.get('/dealerships/get', (req, res) => {
-    const { state, id } = req.query;
+    const {state, id} = req.query;
 
     // Create a selector object based on query parameters
     const selector = {};
     if (state) {
         selector.state = state;
     }
-    
+
     if (id) {
         selector.id = parseInt(id); // Filter by "id" with a value of 1
     }
@@ -50,7 +50,7 @@ app.get('/dealerships/get', (req, res) => {
     db.find(queryOptions, (err, body) => {
         if (err) {
             console.error('Error fetching dealerships:', err);
-            res.status(500).json({ error: 'An error occurred while fetching dealerships.' });
+            res.status(500).json({error: 'An error occurred while fetching dealerships.'});
         } else {
             const dealerships = body.docs;
             res.json(dealerships);
