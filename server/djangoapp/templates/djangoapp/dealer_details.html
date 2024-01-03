@@ -16,7 +16,8 @@
                 <h1 class="display-4">Reviews for {{ dealership.full_name }}</h1>
                 <div class="card-columns">
                     {% for review in review_list %}
-                        <div class="card">
+                        <div class="card text-dark bg-light mb-3 text-left">
+                            <div class="card-header">{{review.name}}</div>
                             {% if review.sentiment < 0 %}
                                 <img class="card-img-left" src="{{ MEDIA_URL }}/emoji/negative.png" width=50>
                             {% elif review.sentiment > 0 %}
@@ -31,6 +32,10 @@
                             </div>
                         </div>
                     {% endfor %}
+
+                    {% if reviews|length == 0 %}
+                        <h1>This dealership has no reviews to show</h1>
+                    {% endif %}
                 </div>
                 {% if user.is_authenticated %}
                     <a class="btn btn-primary" href="{% url 'djangoapp:add_review' dealership.id %}">Add Review</a>
